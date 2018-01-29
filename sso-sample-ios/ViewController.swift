@@ -27,7 +27,7 @@ class ViewController: UIViewController, ViewControllerDelegate {
     // We're using an AppDirect test marketplace as our primary identity provider in this example.
     // You should replace these with your primary OAuth2 identity provider, even if AppDirect is a downstream IDP
     
-    var clientId = "5XX0JG4Q9F"
+    var clientId = "Rg6dwYUU4F"
     var redirectUrl = "com.appdirect.myapps://home:443/"
     var authorizationEndpoint = "https://businessapps.bt.com/oauth/authorize"
     var tokenEndpoint = "https://mdm.us.appdirect.com/api/channels/BT/oauth/token"
