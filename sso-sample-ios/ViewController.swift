@@ -30,7 +30,7 @@ class ViewController: UIViewController, ViewControllerDelegate {
     var clientId = "5XX0JG4Q9F"
     var redirectUrl = "com.appdirect.myapps://home:443/"
     var authorizationEndpoint = "https://businessapps.bt.com/oauth/authorize"
-    var tokenEndpoint = "https://businessapps.bt.com/api/channels/BT/oauth/token"
+    var tokenEndpoint = "https://mdm.us.appdirect.com/api/channels/BT/oauth/token"
     
     //  AppConfig config parameters - we expect these configurations to be set by an MDM server
     //  and made available to our app via the standardUserDefaults mechanism.
