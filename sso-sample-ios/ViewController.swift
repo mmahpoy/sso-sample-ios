@@ -27,10 +27,10 @@ class ViewController: UIViewController, ViewControllerDelegate {
     // We're using an AppDirect test marketplace as our primary identity provider in this example.
     // You should replace these with your primary OAuth2 identity provider, even if AppDirect is a downstream IDP
     
-    var clientId = "4WYyUejTHJ"
+    var clientId = "5XX0JG4Q9F"
     var redirectUrl = "com.appdirect.myapps://home:443/"
-    var authorizationEndpoint = "https://odsa1.byappdirect.com/oauth/authorize"
-    var tokenEndpoint = "https://myapps.appdevices.com/api/authentication/channels/odsa1/authorize"
+    var authorizationEndpoint = "https://businessapps.bt.com/oauth/authorize"
+    var tokenEndpoint = "https://businessapps.bt.com/api/channels/BT/oauth/token"
     
     //  AppConfig config parameters - we expect these configurations to be set by an MDM server
     //  and made available to our app via the standardUserDefaults mechanism.
@@ -38,7 +38,7 @@ class ViewController: UIViewController, ViewControllerDelegate {
     var isvAccountId = "1234"   // unique identifier provided by vendor system when the subscription was created
     var isvUserId = "5678"      // unique identifier for the user in the vendor service
     var companyId = "91011"      // unique identifier for the marketplace company that purchased the subscription
-    var marketplaceUrl = "https://marketplace.appdirect.com" // base url for the marketplace
+    var marketplaceUrl = "https://businessapps.bt.com" // base url for the marketplace
     
     override func viewDidLoad() {
         super.viewDidLoad()
