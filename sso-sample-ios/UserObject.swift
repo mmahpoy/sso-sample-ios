@@ -23,8 +23,8 @@ class UserObject {
         
         //base64 encoded string i want to decode
         var base64String = arr[1] as String
-        if base64String.characters.count % 4 != 0 {
-            let padlen = 4 - base64String.characters.count % 4
+        if base64String.count % 4 != 0 {
+            let padlen = 4 - base64String.count % 4
             base64String += String(repeating: "=", count: padlen)
         }
         
