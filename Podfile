@@ -5,7 +5,7 @@ target 'sso-sample-ios' do
     # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
     use_frameworks!
     
-    pod 'AppAuth', git: 'https://github.com/openid/AppAuth-iOS.git', branch: 'ios11beta'
+    pod 'AppAuth', git: 'https://github.com/openid/AppAuth-iOS.git'
 
     # Pods for sso-sample-ios
     
