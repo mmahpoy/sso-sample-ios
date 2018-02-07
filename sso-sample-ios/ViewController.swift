@@ -27,10 +27,8 @@ class ViewController: UIViewController, ViewControllerDelegate {
     // We're using an AppDirect test marketplace as our primary identity provider in this example.
     // You should replace these with your primary OAuth2 identity provider, even if AppDirect is a downstream IDP
     
-    var clientId = "4WYyUejTHJ"
+    var clientId = "n1BJORCg7r"
     var redirectUrl = "com.appdirect.myapps://home:443/"
-    var authorizationEndpoint = "https://odsa1.byappdirect.com/oauth/authorize"
-    var tokenEndpoint = "https://myapps.appdevices.com/api/authentication/channels/odsa1/authorize"
     
     //  AppConfig config parameters - we expect these configurations to be set by an MDM server
     //  and made available to our app via the standardUserDefaults mechanism.
