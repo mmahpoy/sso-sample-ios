@@ -21,7 +21,7 @@ class sso_sample_iosTests: XCTestCase {
         super.tearDown()
     }
     
-    func DISABLED_testThatObjectCanBeCreatedFromUrl() {
+    func testThatObjectCanBeCreatedFromUrl() {
         let didParseUrl = expectation(description: "testThatObjectCanBeCreatedFromUrl")
         
         let testToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZW1vLnVzZXIyMDE4QHlvcG1haWwuY29tIiwiYXVkIjpbIm9wZW5pZCIsImFjY291bnQiLCJiaWxsaW5nIiwiYXR0IiwibzM2NSIsIm1hcmtldHBsYWNlIiwiY2hhbm5lbCIsImhvc3RlZGNoZWNrb3V0Iiwic2Vzc2lvbiIsInN1cGVydXNlciIsImludGVncmF0aW9uIiwicmVwb3J0aW5nIiwibm90aWZpY2F0aW9uIiwiUFJNIiwibWFya2V0cGxhY2V2MyJdLCJleHAiOjE1MTgwNjU4NzMsImp0aSI6ImQ3YjI4YmU4LWY2M2YtNGNmNi1hNTQ4LWU4ZTZlNmUyNWQzNyIsImNsaWVudF9pZCI6Im4xQkpPUkNnN3IiLCJzY29wZSI6WyJST0xFX1VTRVIiLCJvcGVuaWQiLCJwcm9maWxlIl19.Gb-q1DiEPn5y_088xmIKWiWuUepSAixdBftZeUY7QqIYFFKGQY5kitkG3dALRqoYBfBauUJ-45MAF2OOVrwvyMoZYWU9fsr-9N4JusS3FDhBWSK8deR8ETEYp7jaFdWQ6lEYZ2eHlKzbW0BBvMYTepZWw_HGpRdlJhk8C5gxm1HLGLinwJDHAqx8fcPDvlmn2lEIQlD5MM5u98-2ACP7J_UnAO4MP8cGBcPnPyjrInQniBqHPhbfPexbgZ1JWrQU71-8IzU1Wj-d80FNbZRscqzzwJts7zDWH9ckbg8nThPYNK6e-XGw1HCjhEq2d3byClm9JbTxp-0JwFsZ9IvQjA"
