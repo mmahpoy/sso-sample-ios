@@ -38,7 +38,7 @@ class ViewController: UIViewController, ViewControllerDelegate {
     var isvAccountId = "1234"   // unique identifier provided by vendor system when the subscription was created
     var isvUserId = "5678"      // unique identifier for the user in the vendor service
     var companyId = "91011"      // unique identifier for the marketplace company that purchased the subscription
-    var marketplaceUrl = "https://marketplace.appdirect.com" // base url for the marketplace
+    var marketplaceUrl = "https://odsa.byappdirect.com" // base url for the marketplace
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,63 +140,67 @@ class ViewController: UIViewController, ViewControllerDelegate {
     func login() {
         
         // build the auth configuration
-        let configuration = OIDServiceConfiguration(authorizationEndpoint: URL(string: authorizationEndpoint)!, tokenEndpoint: URL(string: tokenEndpoint)!)
-        
-        // package the appConfig parameters
-        
-        let appConfigParameters = ["com.appdirect.isv.accountid": isvAccountId,
-                                   "com.appdirect.isv.userid": isvUserId,
-                                   "com.appdirect.companyid": companyId,
-                                   "com.appdirect.marketplace.url": marketplaceUrl]
-        
-        // build the auth request
-        
-        let request = OIDAuthorizationRequest(configuration: configuration, clientId: clientId, scopes: [OIDScopeOpenID, OIDScopeProfile, "ROLE_USER"], redirectURL: URL(string: redirectUrl)!, responseType: "code", additionalParameters: appConfigParameters)
-        
-        // present the auth request
-        
-        appDelegate.currentAuthorizationFlow = OIDAuthorizationService.present(request, presenting: self, callback: { (authorizationResponse: OIDAuthorizationResponse?, error: Error?) in
+        OIDAuthorizationService.discoverConfiguration(forIssuer: URL(string: marketplaceUrl)!) { (configuration, error) in
             guard error == nil else {
-                print("Authorization request error: \(describing: error?.localizedDescription)")
+                print("Service discovery error: \(describing: error?.localizedDescription)")
                 return
             }
             
-            if authorizationResponse != nil {
-                let authState = OIDAuthState(authorizationResponse: authorizationResponse!)
+            // package the appConfig parameters
+            
+            let appConfigParameters = ["com.appdirect.isv.accountid": self.isvAccountId,
+                                       "com.appdirect.isv.userid": self.isvUserId,
+                                       "com.appdirect.companyid": self.companyId,
+                                       "com.appdirect.marketplace.url": self.marketplaceUrl]
+            
+            // build the auth request
+            
+            let request = OIDAuthorizationRequest(configuration: configuration!, clientId: self.self.clientId, scopes: [OIDScopeOpenID, OIDScopeProfile, "ROLE_USER"], redirectURL: URL(string: self.redirectUrl)!, responseType: "code", additionalParameters: appConfigParameters)
+            
+            // present the auth request
+            
+            self.appDelegate.currentAuthorizationFlow = OIDAuthorizationService.present(request, presenting: self, callback: { (authorizationResponse: OIDAuthorizationResponse?, error: Error?) in
+                guard error == nil else {
+                    print("Authorization request error: \(describing: error?.localizedDescription)")
+                    return
+                }
                 
-                // perform the code exchange request
-                
-                if let tokenExchangeRequest = authState.lastAuthorizationResponse.tokenExchangeRequest() {
-                    OIDAuthorizationService.perform(tokenExchangeRequest, callback: { (tokenResponse: OIDTokenResponse?, error: Error?) in
-                        guard error == nil else {
-                            print("Token exchange error: \(describing: error?.localizedDescription)")
-                            return
-                        }
-                        
-                        if let tokenResponse = tokenResponse {
-                            
-                            // parse out the token we need here and use it to create the session
-                            
-                            self.userObject = UserObject.objectFromAccessToken(tokenResponse.accessToken!)
-                            
-                            // check to see if we have a valid session
+                if authorizationResponse != nil {
+                    let authState = OIDAuthState(authorizationResponse: authorizationResponse!)
                     
-                            if self.loginWasSuccessful() {
-                                
-                                // call this view's delegate's closure
-                                
-                                self.delegate?.loginWasSccessful(self.userObject!)
-                                
-                            } else {
-                                
-                                // the response token was not properly formatted, we can't build a user object
+                    // perform the code exchange request
+                    
+                    if let tokenExchangeRequest = authState.lastAuthorizationResponse.tokenExchangeRequest() {
+                        OIDAuthorizationService.perform(tokenExchangeRequest, callback: { (tokenResponse: OIDTokenResponse?, error: Error?) in
+                            guard error == nil else {
+                                print("Token exchange error: \(describing: error?.localizedDescription)")
+                                return
                             }
                             
-                        }
-                    })
+                            if let tokenResponse = tokenResponse {
+                                
+                                // parse out the token we need here and use it to create the session
+                                
+                                self.userObject = UserObject.objectFromAccessToken(tokenResponse.accessToken!)
+                                
+                                // check to see if we have a valid session
+                        
+                                if self.loginWasSuccessful() {
+                                    
+                                    // call this view's delegate's closure
+                                    
+                                    self.delegate?.loginWasSccessful(self.userObject!)
+                                    
+                                } else {
+                                    
+                                    // the response token was not properly formatted, we can't build a user object
+                                }
+                            }
+                        })
+                    }
                 }
-            }
-        })
+            })
+        }
     }
     
     // Here we destory the user object
